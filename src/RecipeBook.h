@@ -2,7 +2,8 @@
 #define RECIPE_BOOK_H
 
 typedef struct RecipeBook{
-    int i_Recept_Id;
+    int i_Recipe_Id;
+    char c_Recipe_Name[21];
     int i_Ingredients_Id;
     char c_description[5001];
 }RecipeBook;
