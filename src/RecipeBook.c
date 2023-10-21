@@ -32,7 +32,7 @@ static void createIngredientListItem(Ingredients *I_ptr,Ingredients const* Ia_tm
         I_ptr->I_next = I_tmpIngredient;
         I_ptr = I_tmpIngredient;
 
-        I_tmpIngredient->i_weight = Ia_tmpIngredients->i_weight;
+        I_tmpIngredient->d_weight = Ia_tmpIngredients->d_weight;
         strcpy(I_tmpIngredient->c_unit,Ia_tmpIngredients->c_unit);
         strcpy(I_tmpIngredient->c_ingredients_name, Ia_tmpIngredients->c_ingredients_name);
         Date D_null= {.i_day =0,
@@ -61,7 +61,7 @@ extern void initializeRecipeBook(RecipeBook* book){
         i_indexForIngredient = 0;
     printf("hi %d\n",i_indexForIngredient);
 
-        while (sscanf(strtok(c_tmp_IngredientLine,","),"%d %s %s",&Ia_tmpIngredients[i_indexForIngredient].i_weight,
+        while (sscanf(strtok(c_tmp_IngredientLine,","),"%d %s %s",&Ia_tmpIngredients[i_indexForIngredient].d_weight,
                                                                   &Ia_tmpIngredients[i_indexForIngredient].c_unit,
                                                                   &Ia_tmpIngredients[i_indexForIngredient].c_ingredients_name)!= 0){
             i_indexForIngredient ++;

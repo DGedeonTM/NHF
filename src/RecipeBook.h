@@ -5,7 +5,6 @@
 typedef struct RecipeBook{
     int i_Recipe_Id;
     char c_Recipe_Name[21];
-    Ingredients I_ingredients;
     char c_description[5001];
     struct RecipeBook *R_next;
 }RecipeBook;
