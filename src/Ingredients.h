@@ -10,7 +10,7 @@ typedef struct Date{
 typedef struct Ingredients{
     double d_weight;
     char c_unit[11];
-    char c_ingredients_name[51];
+    char c_ingredients_name[71];
     Date D_expiration_date;
     struct Ingredients *I_next;
 }Ingredients;
