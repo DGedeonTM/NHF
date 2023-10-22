@@ -50,7 +50,7 @@ static void freeIngredientsList(Ingredients *I_ptr){
         free(temp);
     }
 }
-
+/*
 int main() {
     Ingredients I_start;  // Create a dummy start node
     InitIngredientList(&I_start);
@@ -73,4 +73,4 @@ int main() {
 
     debugmalloc_dump();
     return 0;
-}
+}*/
