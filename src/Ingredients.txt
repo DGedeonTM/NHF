@@ -1,0 +1,33 @@
+2.5 ; kg ; rice ; 0.0.0
+3 ; kg ; pasta ; 0.0.0
+3 ; cans ; corn ; 14.10.2026
+2 ; tins ; beans ; 31.12.2026
+2 ; kg ; sugar ; 0.0.0
+1.5 ; kg ; onions ; 0.0.0
+0.5 ; l ; oil ; 0.0.0
+1.5 ; kg ; pasty flour ; 13.03.2024
+1 ; jar ; tomatoes ; 0.0.0
+1 ; jar ; cherry preserves ; 0.0.0
+2 ; kg ; cocoa powder ; 04.05.2024
+1 ; package ; ground poppy seeds ; 29.26.2024
+1 ; package ; ground nuts ; 29.26.2024
+1 ; kg ; semolina ; 0.0.0
+2 ; kg ; chicken breast ; 0.0.0
+2 ; kg ; rabbit thigh ; 0.0.0
+0.3 ; kg ; frozen vegetable mixture ; 02.11.2023
+5 ; dkg ; bacon ; 0.0.0
+500 ; g ; Rama butter ; 0.0.0
+3 ; piece ; sausages ; 0.0.0
+0.5 ; heads ; kale ; 0.0.0
+500 ; g ; sour cream ; 02.11.2023
+20 ; tsp ; vanilla sugar ; 0.0.0
+1 ; dkg ; garlic ; 0.0.0
+7 ; g ; parsley ; 0.0.0
+14 ; g ; cumin ; 0.0.0
+11 ; g ; dill ; 0.0.0
+0.2 ; kg ; salt ; 0.0.0
+25 ; dkg ; cheese ; 0.0.0
+6 ; piece ; eggs ; 29.10.2023
+20 ; g ; ground black pepper ; 0.0.0
+1 ; dkg ; Italian spice mix ; 0.0.0
+0.4 ; dkg ; red pepper ; 0.0.0
