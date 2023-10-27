@@ -8,6 +8,7 @@ typedef struct Date{
 }Date;
 
 typedef struct Ingredients{
+    int i_Recipe_Id;
     double d_weight;
     char c_unit[11];
     char c_ingredients_name[71];

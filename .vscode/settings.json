@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "receptbook.h": "c",
-        "recipebook.h": "c"
+        "recipebook.h": "c",
+        "ingredients.h": "c"
     }
 }
