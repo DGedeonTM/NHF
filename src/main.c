@@ -46,6 +46,28 @@ int main() {
             default:
                 printf("Invalid choice. Please try again.\n");
         }
+
+    Ingredient I_start;  // Create a dummy start node
+    InitIngredientList(&I_start);
+
+    // Print the linked list of Ingredients
+    Ingredients* current = I_start.I_next;
+    while (current != NULL) {
+        printf("Weight: %g, Unit: %s, Name: %s, Expiration Date: %d.%d.%d\n",
+               current->d_weight,
+               current->c_unit,
+               current->c_ingredients_name,
+               current->D_expiration_date.i_day,
+               current->D_expiration_date.i_month,
+               current->D_expiration_date.i_year);
+
+        current = current->I_next;
+    }
+
+    freeIngredientsList(I_start.I_next);
+
+    debugmalloc_dump();
+    return 0;
     }
     return 0;
 }
