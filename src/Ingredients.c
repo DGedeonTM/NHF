@@ -1,76 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Ingredients.h"
 #include "debugmalloc.h"
+#include "structs.h"
 
-static Ingredients* createIngredientListItem(Ingredients * Ia_tmpIngredients) {
-    Ingredients* I_tmpIngredient = (Ingredients*)malloc(sizeof(Ingredients));
+extern void createIngredientListItem(Ingredient * I_Ingredient, Ingredient *I_ptr) {
+    while(I_ptr->I_next_Ingredient !=NULL){
+        I_ptr = I_ptr->I_next_Ingredient;
+    }
+
+    Ingredient* I_tmpIngredient = (Ingredient*)malloc(sizeof(Ingredient));
     if (I_tmpIngredient == NULL) {
         perror("Failed to allocate memory for Ingredients");
         exit(1);  // Handle the error as needed
     }
-
-    I_tmpIngredient->I_next = NULL;
-    I_tmpIngredient->d_weight = Ia_tmpIngredients->d_weight;
-    strcpy(I_tmpIngredient->c_unit, Ia_tmpIngredients->c_unit);
-    strcpy(I_tmpIngredient->c_ingredients_name, Ia_tmpIngredients->c_ingredients_name);
-    I_tmpIngredient->D_expiration_date = Ia_tmpIngredients->D_expiration_date;
-    return I_tmpIngredient;
+    I_tmpIngredient-> I_next_Ingredient = NULL;
+    strcpy(I_tmpIngredient->c_Ingredient_ID,I_Ingredient->c_Ingredient_ID);
+    strcpy(I_tmpIngredient->c_Ingredient_Name,I_Ingredient->c_Ingredient_Name);
+    strcpy(I_tmpIngredient->c_Unit,I_Ingredient->c_Unit);
+    I_ptr->I_next_Ingredient = I_tmpIngredient;
+    I_ptr = I_ptr->I_next_Ingredient;
 }
 
-extern void InitIngredientList(Ingredients* I_start_ptr) {
-    FILE* F_file_Ingredients_txt = fopen("Ingredients.txt", "r");
-    if (F_file_Ingredients_txt == NULL) {
-        perror("Failed to open Ingredients.txt");
-        exit(1);
+extern void deleteIngredientListItem(Ingredient *I_Ingredient, char c_searchedID[]){
+    Ingredient *I_tmp_ptr = I_Ingredient->I_next_Ingredient;
+    Ingredient *I_behind_ptr = I_Ingredient;
+
+    while(I_tmp_ptr != NULL){
+        if(strcmp(I_tmp_ptr->c_Ingredient_ID,c_searchedID)==0){
+            I_behind_ptr->I_next_Ingredient = I_tmp_ptr->I_next_Ingredient;
+            free(I_tmp_ptr);
+            break;
+        }
+        I_tmp_ptr = I_tmp_ptr->I_next_Ingredient;
+        I_behind_ptr = I_behind_ptr->I_next_Ingredient;
     }
-    Ingredients I_tmpIngredients;
-    Ingredients* I_ptr = I_start_ptr;
-
-   while (fscanf(F_file_Ingredients_txt, "%lf ; %s ; %[^;] ; %d.%d.%d",
-              &I_tmpIngredients.d_weight,
-              &I_tmpIngredients.c_unit,
-              &I_tmpIngredients.c_ingredients_name,
-              &I_tmpIngredients.D_expiration_date.i_day,
-              &I_tmpIngredients.D_expiration_date.i_month,
-              &I_tmpIngredients.D_expiration_date.i_year) != EOF ) {
-
-        I_ptr->I_next = createIngredientListItem(&I_tmpIngredients);
-        I_ptr = I_ptr->I_next;
-    }
-
-    fclose(F_file_Ingredients_txt);
 }
 
-static void freeIngredientsList(Ingredients *I_ptr){
+extern void listIngredientsListItems(Ingredient *I_Ingredient){
+    Ingredient *I_tmp_ptr = I_Ingredient;
+    while(I_tmp_ptr != NULL){
+        printf("%s\n", I_tmp_ptr->c_Ingredient_Name);
+        I_tmp_ptr = I_tmp_ptr->I_next_Ingredient;
+    }
+}
+
+extern void freeIngredientsList(Ingredient *I_ptr){
+    Ingredient* I_tmp_ptr = I_ptr;
     while (I_ptr != NULL) {
-        Ingredients* temp = I_ptr;
-        I_ptr = I_ptr->I_next;
-        free(temp);
+        I_tmp_ptr = I_ptr->I_next_Ingredient;
+        free(I_ptr);
+        I_ptr = I_tmp_ptr;
     }
 }
-/*
-int main() {
-    Ingredients I_start;  // Create a dummy start node
-    InitIngredientList(&I_start);
 
-    // Print the linked list of Ingredients
-    Ingredients* current = I_start.I_next;
-    while (current != NULL) {
-        printf("Weight: %g, Unit: %s, Name: %s, Expiration Date: %d.%d.%d\n",
-               current->d_weight,
-               current->c_unit,
-               current->c_ingredients_name,
-               current->D_expiration_date.i_day,
-               current->D_expiration_date.i_month,
-               current->D_expiration_date.i_year);
-
-        current = current->I_next;
+extern Ingredient* getIngredientElementByID(Ingredient *I_Ingredient, char c_searchedID[]){
+    Ingredient *I_tmp_ptr = I_Ingredient;
+    while(I_tmp_ptr != NULL){
+        if(strcmp(I_tmp_ptr->c_Ingredient_ID,c_searchedID)==0){
+            return I_tmp_ptr;
+        }
+        I_tmp_ptr = I_tmp_ptr->I_next_Ingredient;
     }
-
-    freeIngredientsList(I_start.I_next);
-
-    debugmalloc_dump();
-    return 0;
-}*/
+    return NULL;
+}
