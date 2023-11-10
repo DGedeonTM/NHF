@@ -1,0 +1,13 @@
+@startuml
+
+class ClassA {
+  +methodA(): void
+}
+
+class ClassB {
+  +methodB(): void
+}
+
+ClassA --> ClassB : methodA() calls methodB()
+
+@enduml
