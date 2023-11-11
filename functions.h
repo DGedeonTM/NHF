@@ -32,6 +32,7 @@ extern void deleteIngredientListItem(Ingredient *I_Ingredient, char c_searchedID
 extern void listIngredientsListItems(Ingredient *I_Ingredient);
 extern void freeIngredientsList(Ingredient *I_ptr);
 extern Ingredient* getIngredientElementByID(Ingredient *I_Ingredient, char c_searchedID[]);
+extern Ingredient* getIngredientElementByName(Ingredient *I_Ingredient, char c_searchedName[]);
 
 
 extern void createStorageListItem(Storage * S_StoredItemInStorage, Storage *S_ptr);
@@ -58,8 +59,19 @@ extern Logs* getLogElementByID(Logs *L_Log, char c_searchedID[] );
 
 extern char* gen_uuid(void);
 extern int numbersOfSeachedConnectionItem(Connection *C_Connection, char c_searchedID[]);
-extern void CookRecipe(char c_Recipe_Name[],Recipe *R_Recipe, Storage *S_Storage, Connection *C_Connection, Logs *L_ptr);
+extern bool IsThereStorageItemExist(char c_Ingredient_Name[]);
 
+
+
+extern void ViewRecipes(void);
+extern void AddRecipe(char c_Recipe_Name[], char c_Recipe_Description[]);
+extern void DeleteRecipe(char c_Recipe_Name[]);
+extern ViewIngredients(void);
+extern void AddIngredient(char c_Inredient_Name[], char c_Ingredient_Unit);
+extern void ViewStorage();
+extern void AddStorage(char c_Storage_Name[], double amount, Date Exp_Date);
+extern void SelectAndCookRecipe(char c_Recipe_Name[],Recipe *R_Recipe, Storage *S_Storage, Connection *C_Connection, Logs *L_ptr);
+extern ViewLogs(void);
 
 
 extern void ReadIngredientFile(void);

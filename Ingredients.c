@@ -64,3 +64,14 @@ extern Ingredient* getIngredientElementByID(Ingredient *I_Ingredient, char c_sea
     }
     return NULL;
 }
+
+extern Ingredient* getIngredientElementByName(Ingredient *I_Ingredient, char c_searchedName[]){
+     Ingredient *I_tmp_ptr = I_Ingredient;
+    while(I_tmp_ptr != NULL){
+        if(strcmp(I_tmp_ptr->c_Ingredient_Name,c_searchedName)==0){
+            return I_tmp_ptr;           
+        }
+        I_tmp_ptr = I_tmp_ptr->I_next_Ingredient;
+    }
+    return NULL;
+}

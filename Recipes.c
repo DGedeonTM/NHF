@@ -68,7 +68,6 @@ extern Recipe* getRecipeElementByID(Recipe *R_Recipe, char c_searchedID[] ){
 
 extern Recipe* getRecipeElementByName(Recipe *R_Recipe, char c_searchedName[]){
      Recipe *R_tmp_ptr = R_Recipe;
-    printf("%s",c_searchedName);
 
     while(R_tmp_ptr != NULL){
         if(strcmp(R_tmp_ptr->c_Recipe_Name,c_searchedName)==0){
