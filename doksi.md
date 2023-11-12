@@ -1,7 +1,4 @@
 Basics of Programming 1
-Name: Tóbiás Máté Levente
-Neptun:
-VV5EPA
 Date:
 2023.11.12
 Documentation 
