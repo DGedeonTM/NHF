@@ -5,7 +5,7 @@
 #include "structs.h"
 #include "functions.h"
 
-
+// this is a modification  :3 :D 
 
 extern int main(void){
 
