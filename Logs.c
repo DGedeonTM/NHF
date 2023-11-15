@@ -44,11 +44,12 @@ extern void deleteLogListItem(Logs *L_Log, char c_searchedID[] ){
 extern void listLogsListItems(Logs *L_Log){
     Logs *L_tmp_ptr = L_Log;
     while(L_tmp_ptr != NULL){
-        if(getRecipeElementByID(L_tmp_ptr->c_ID) != NULL){
-            printf("Name: \"%s\" ",getRecipeElementByID(L_tmp_ptr->c_ID)->c_Recipe_Name);
+        if( //getRecipeElementByID(L_tmp_ptr->c_ID) != NULL 
+           true){
+            //printf("Name: \"%s\" ",getRecipeElementByID(,L_tmp_ptr->c_ID)->c_Recipe_Name);
         }
         else{
-            printf("Name: \"%s\" ",getIngredientElementByID(L_tmp_ptr->c_ID)->c_Ingredient_Name);
+            //printf("Name: \"%s\" ",getIngredientElementByID(L_tmp_ptr->c_ID)->c_Ingredient_Name);
         }
         printf("%s\n",L_tmp_ptr->c_Operation_Description);
         L_tmp_ptr = L_tmp_ptr->L_next_Logs;

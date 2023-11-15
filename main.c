@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "structs.h"
 #include "functions.h"
 
 extern int main(void) {
 
-    int i_choice;
-    while (1) {
+    int i_choice = 0;
+    Init();
+    while (i_choice != 13){
+        printf("\n>----------------------<\n");
         printf("\nMenu Options:\n");
         printf("1. View Recipes\n");
         printf("2. Add Recipe\n");
@@ -25,17 +28,19 @@ extern int main(void) {
 
         printf("Enter your choice: ");
         scanf("%d", &i_choice);
+        printf("\n");
 
-        switch (i_choice) {
+        switch(i_choice){
             case 1:
+                printf("\nRecipe List:\n");
                 ViewRecipes();
                 break;
             case 2:
-                char c_tmpChoosenName[51];
+                char c_tmpRecipeName[51];
                 char c_tmpDescription[5001];
                 printf("Please enter the name of Recipe:");
-                if(scanf("%50s",&c_tmpChoosenName) == 1){
-                    printf("You entered: \"%s\" \n",c_tmpChoosenName);
+                if(scanf("%s",&c_tmpRecipeName) == 1 && strlen(c_tmpRecipeName) < 51){
+                    printf("You entered: \"%s\" \n",c_tmpRecipeName);
                 }
                 else{
                      printf("Input too long. Please enter up to 50 characters.\n");
@@ -43,25 +48,36 @@ extern int main(void) {
                 }
     
                 printf("Please enter the description of Recipe:");
-                if(scanf("%5000s",&c_tmpDescription) == 1){}
-                else{
+                if(scanf("%s",&c_tmpDescription) != 1 || strlen(c_tmpDescription)>=5001){
                      printf("Input too long. Please enter up to 5000 characters.\n");
                      break;
                 }
-                AddRecipe(c_tmpChoosenName,c_tmpDescription);
+                AddRecipe(c_tmpRecipeName,c_tmpDescription);
+                printf("Recipe list was updated\n");
+
                 break;
             case 3:
-                DeleteRecipe();
+                chat c_tmpDeleteName[51];
+                printf("Please enter the name of Recipe what you want to delete:");
+                if(scanf("%s",&c_tmpDeleteName) == 1 && strlen(c_tmpDeleteName) < 51){
+                    printf("You entered: \"%s\" \n",c_tmpDeleteName);
+                }
+                else{
+                     printf("Input too long. Please enter up to 50 characters.\n");
+                     break;
+                }
+                DeleteRecipe(c_tmpDeleteName);
                 break;
             case 4:
+                printf("\nIngredient list:\n");
                 ViewIngredients();
                 break;
             case 5:
-                char c_tmpChoosenName[51];
+                char c_tmpIngredientName[51];
                 char c_tmpUnit[11];
                 printf("Please enter the name of ingredient:");
-                if(scanf("%50s",&c_tmpChoosenName) == 1){
-                    printf("You entered: \"%s\" \n",c_tmpChoosenName);
+                if(scanf("%s",&c_tmpIngredientName) == 1 && strlen(c_tmpIngredientName) < 51 ){
+                    printf("You entered: \"%s\" \n",c_tmpIngredientName);
                 }
                 else{
                      printf("Input too long. Please enter up to 50 characters.\n");
@@ -69,7 +85,7 @@ extern int main(void) {
                 }
     
                 printf("Please enter the unit of ingredient:");
-                if(scanf("%10s",&c_tmpUnit) == 1){
+                if(scanf("%s",&c_tmpUnit) == 1 && strlen(c_tmpUnit) < 11){
                     printf("You entered: \"%s\" \n",c_tmpUnit);
                 }
                 else{
@@ -77,27 +93,26 @@ extern int main(void) {
                      break;
                 }
         
-                AddIngredient(c_tmpChoosenName,c_tmpUnit);
-                printf("Ingredient list was updated\n")
+                AddIngredient(c_tmpIngredientName,c_tmpUnit);
+                printf("Ingredient list was updated\n");
                 break;
             case 6:
                 ViewStorage();
                 break;
             case 7:
-                char c_tmpChoosenName[51];
+                char c_tmpStorageName[51];
                 double d_tmpAmount;
                 printf("Please enter the name of ingredient:");
-                if(scanf("%50s",&c_tmpChoosenName) == 1){
-                    printf("You entered: \"%s\" \n",c_tmpChoosenName);
+                if(scanf("%s",&c_tmpStorageName) == 1 && strlen(c_tmpStorageName) < 51){
+                    printf("You entered: \"%s\" \n",c_tmpStorageName);
                 }
                 else{
                      printf("Input too long. Please enter up to 50 characters.\n");
                      break;
                 }
                 
-                if(!IsThereStorageItemExist(c_tmpChoosenName)){
-                    printf("The choosen item: \"%s\" is not in the system. Please make sure you type correctly. \n Maybe you trying to enter an ingredient type which is not in sytem.
-                      Please make sure is the ingredient what you want to use, is exist. For this use \"4. View Ingredients\" function or add new ingredient to your system \n",c_tmpChoosenName);
+                if(!IsThereStorageItemExist(c_tmpStorageName)){
+                    printf("The choosen item: \"%s\" is not in the system. Please make sure you type correctly. \n Maybe you trying to enter an ingredient type which is not in sytem. Please make sure is the ingredient what you want to use, is exist. For this use -- 4. View Ingredients -- function or add new ingredient to your system \n " , c_tmpStorageName);
                     break;
                 }
 
@@ -111,12 +126,12 @@ extern int main(void) {
                 Date D_tmpDate;
 
                 printf("Expiraton date: ");
-                if(scanf("%d:%d:%d",&D_tmpDate.i_day,&D_tmpDate.i_month,&D_tmpDate.i_year)!=1){
+                if(scanf("%d:%d:%d",&D_tmpDate.i_day,&D_tmpDate.i_month,&D_tmpDate.i_year)!=3){
                     printf("Please write the expiration date in day:month:year format\n");
                     break;
                 }               
-                AddStorage(c_tmpChoosenName,d_tmpAmount,D_tmpDate);
-                printf("Storage was updated.\n")
+                AddStorage(c_tmpStorageName,d_tmpAmount,D_tmpDate);
+                printf("Storage was updated.\n");
                 break;
             case 8:
 
@@ -128,15 +143,14 @@ extern int main(void) {
 
                 break;
             case 11:
-                char c_tmpChoosen[51];
                 printf("Please enter your choosen Recipe name what you want to cook:");
-                if(scanf("%50s",&c_tmpChoosen) == 1){
-                    printf("You entered: \"%s\"",c_tmpChoosen);
+                if(scanf("%s",&c_tmpRecipeName) == 1 && strlen(c_tmpRecipeName)<51){
+                    printf("You entered: \"%s\"",c_tmpRecipeName);
                 }
                 else{
                      printf("Input too long. Please enter up to 50 characters.\n");
                 }
-                SelectAndCookRecipe();
+                CookRecipe(c_tmpRecipeName);
                 printf("Recipe was cooked.\n");
                 break;
             case 12:
@@ -144,11 +158,14 @@ extern int main(void) {
                 break;            
             case 13:
                 printf("Exiting the program.\n Goodbye\n");
-                return 0;
+                break;            
             default:
                 printf("Invalid choice. Please try again.\n");
-        }
 
-    return 0;
+        
+    
+        }
     }
+    FreeAll();
+    return 0;
 }

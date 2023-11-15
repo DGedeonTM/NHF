@@ -57,32 +57,41 @@ extern void freeLogsList(Logs *L_ptr);
 extern Logs* getLogElementByID(Logs *L_Log, char c_searchedID[] );
 
 
-extern char* gen_uuid(void);
 extern int numbersOfSeachedConnectionItem(Connection *C_Connection, char c_searchedID[]);
 extern bool IsThereStorageItemExist(char c_Ingredient_Name[]);
 
-
+extern char* gen_uuid();
 
 extern void ViewRecipes(void);
 extern void AddRecipe(char c_Recipe_Name[], char c_Recipe_Description[]);
 extern void DeleteRecipe(char c_Recipe_Name[]);
-extern ViewIngredients(void);
-extern void AddIngredient(char c_Inredient_Name[], char c_Ingredient_Unit);
-extern void ViewStorage();
+extern void ViewIngredients(void);
+extern void AddIngredient(char c_Inredient_Name[], char c_Ingredient_Unit[]);
+extern void ViewStorage(void);
 extern void AddStorage(char c_Storage_Name[], double amount, Date Exp_Date);
-extern void SelectAndCookRecipe(char c_Recipe_Name[],Recipe *R_Recipe, Storage *S_Storage, Connection *C_Connection, Logs *L_ptr);
-extern ViewLogs(void);
+extern void CookRecipe(char c_Recipe_Name[]);
+extern void ViewLogs(void);
+extern void Init(void);
 
 
-extern void ReadIngredientFile(void);
-extern void ReadRecipeFile(void);
-extern void ReadStorageFile(void);
+
+extern void ReadIngredientFile(Ingredient *I_ptr);
+extern void ReadRecipeFile(Recipe *R_ptr);
+extern void ReadStorageFile(Storage *S_ptr);
+extern void ReadConnectionFile(void);
+extern void ReadLogsFile(Logs *L_ptr);
+
 
 extern void WriteRecipeToFile(Recipe *R_Recipe);
 extern void WriteIngredientToFile(Ingredient *I_Ingredient);
 extern void WriteStorageToFile(Storage *S_Storage);
+extern void ReplaceLineInStorageFile(Storage *S_Storage);
+
 extern void WriteConnenctionToFile(Connection *C_Connection);
 extern void WriteLogsToFile(Logs *L_Log);
+
+
+extern void FreeAll(void);
 
 
 #endif

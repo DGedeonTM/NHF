@@ -110,10 +110,10 @@ printf("----------------------\n");
     printf("search food: %s\n",getRecipeElementByName(R_dumyRecipeStart.R_next_Recipe,"UwU")->c_Recipe_Name);
 
 
-    CookRecipe("UwU",R_dumyRecipeStart.R_next_Recipe,
-                     S_dumyStorageStart.S_next_Storage,
-                     &C_dumyConnectionStart,
-                     &L_dumyLogsStart);
+    //CookRecipe("UwU",R_dumyRecipeStart.R_next_Recipe,
+                   //  S_dumyStorageStart.S_next_Storage,
+                  //   &C_dumyConnectionStart,
+                 //    &L_dumyLogsStart);
 
 
 
