@@ -57,6 +57,7 @@ extern void freeLogsList(Logs *L_ptr);
 extern Logs* getLogElementByID(Logs *L_Log, char c_searchedID[] );
 
 
+extern char* gen_uuid(void);
 extern int numbersOfSeachedConnectionItem(Connection *C_Connection, char c_searchedID[]);
 extern bool IsThereStorageItemExist(char c_Ingredient_Name[]);
 extern bool IsThereRecipeItemExist(char c_Recipe_Name[]);
@@ -66,9 +67,9 @@ extern char* gen_uuid();
 extern void ViewRecipes(void);
 extern void AddRecipe(char c_Recipe_Name[], char c_Recipe_Description[]);
 extern void DeleteRecipe(char c_Recipe_Name[]);
-extern void ViewIngredients(void);
-extern void AddIngredient(char c_Inredient_Name[], char c_Ingredient_Unit[]);
-extern void ViewStorage(void);
+extern ViewIngredients(void);
+extern void AddIngredient(char c_Inredient_Name[], char c_Ingredient_Unit);
+extern void ViewStorage();
 extern void AddStorage(char c_Storage_Name[], double amount, Date Exp_Date);
 extern void CookRecipe(char c_Recipe_Name[]);
 extern void ViewLogs(void);
@@ -88,13 +89,8 @@ extern void ReadLogsFile(Logs *L_ptr);
 extern void WriteRecipeToFile(Recipe *R_Recipe);
 extern void WriteIngredientToFile(Ingredient *I_Ingredient);
 extern void WriteStorageToFile(Storage *S_Storage);
-extern void ReplaceLineInStorageFile(Storage *S_Storage);
-
 extern void WriteConnenctionToFile(Connection *C_Connection);
 extern void WriteLogsToFile(Logs *L_Log);
-
-
-extern void FreeAll(void);
 
 
 #endif
