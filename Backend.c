@@ -11,7 +11,6 @@
     Ingredient I_dumyIngredientStart;
     Storage S_dumyStorageStart;
     Connection C_dumyConnectionStart;
-   // C_dumyConnectionStart.C_next_Connection = NULL;
     Logs L_dumyLogsStart;
 
     Recipe R_tmp_Recipe;
@@ -21,11 +20,13 @@
     Logs L_tmp_Log;
 
 
+
 extern void Init(void){
+    srand((unsigned int)time(NULL));
     ReadRecipeFile(&R_dumyRecipeStart);
     ReadIngredientFile(&I_dumyIngredientStart);
     ReadStorageFile(&S_dumyStorageStart);
-    ReadConnectionFile();
+    ReadConnectionFile(&C_dumyConnectionStart);
     ReadLogsFile(&L_dumyLogsStart);
 }
 
@@ -68,6 +69,7 @@ extern void ViewRecipes(void){
 }
 
 extern void AddRecipe(char c_Recipe_Name[], char c_Recipe_Description[]){
+   
     strcpy(R_tmp_Recipe.c_Recipe_ID, gen_uuid());
     strcpy(R_tmp_Recipe.c_Recipe_Name, c_Recipe_Name);
     strcpy(R_tmp_Recipe.c_Recipe_Description, c_Recipe_Description); 
@@ -82,21 +84,21 @@ extern void AddRecipe(char c_Recipe_Name[], char c_Recipe_Description[]){
 }
 
 extern void DeleteRecipe(char c_Recipe_Name[]){
-    R_tmp_Recipe = getRecipeElementByName(R_dumyRecipeStart.R_next_Recipe,c_Recipe_Name);
-    if(R_tmp_Recipe == NULL){
+    Recipe * R_tmp_ptr_Recipe = getRecipeElementByName(R_dumyRecipeStart.R_next_Recipe,c_Recipe_Name);
+    if(R_tmp_ptr_Recipe == NULL){
         printf("\nRecipe does not extist\n");
     }
     else{
-        strcpy(L_tmp_Log.c_ID,R_tmp_Recipe.c_Recipe_ID);
+        strcpy(L_tmp_Log.c_ID,R_tmp_ptr_Recipe->c_Recipe_ID);
         strcpy(L_tmp_Log.c_Operation_Description,"D");
         getDate(&L_tmp_Log.D_Date_Of_The_Log);
-        deleteRecipeListItem(&R_dumyRecipeStart.R_next_Recipe,R_tmp_Recipe->c_Recipe_ID);
+        deleteRecipeListItem(&R_dumyRecipeStart,R_tmp_ptr_Recipe->c_Recipe_ID);
         createLogsListItem(&L_tmp_Log,L_dumyLogsStart.L_next_Logs);
         WriteLogsToFile(&L_tmp_Log);
     }
 }
 
-extern ViewIngredients(void){
+extern void ViewIngredients(void){
     if(I_dumyIngredientStart.c_Ingredient_ID == NULL){
         printf("\nThere are no available Ingredients in the system\n");
     }
@@ -127,6 +129,13 @@ extern void ViewStorage(void){
     else{
         listStorageListItems(S_dumyStorageStart.S_next_Storage);
     }
+}
+
+extern void AddConnection(char c_Recipe_Name[], char c_Ingredient_Name[],double d_amount){
+    strcpy(C_tmp_Connection.c_Recipe_ID,getRecipeElementByName(R_dumyRecipeStart.R_next_Recipe,c_Recipe_Name)->c_Recipe_ID);
+    strcpy(C_tmp_Connection.c_Ingredient_ID,getIngredientElementByName(I_dumyIngredientStart.I_next_Ingredient,c_Ingredient_Name)->c_Ingredient_ID);
+    C_tmp_Connection.d_Amount_For_Recipe = d_amount;
+    createConnectionListItem(&C_tmp_Connection,C_dumyConnectionStart.C_next_Connection);
 }
 
 extern void AddStorage(char c_Storage_Name[], double amount, Date Exp_Date){
@@ -160,41 +169,67 @@ extern bool IsThereStorageItemExist(char c_Ingredient_Name[]){
     }
 }
 
+extern bool IsThereRecipeItemExist(char c_Recipe_Name[]){
+    if(getRecipeElementByName(R_dumyRecipeStart.R_next_Recipe,c_Recipe_Name)!=NULL){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 extern void CookRecipe(char c_Recipe_Name[]){
-    SelectAndCookRecipe(c_Recipe_Name,  R_dumyRecipeStart.R_next_Recipe,
-                                        S_dumyStorageStart.S_next_Storage,
-                                        C_dumyConnectionStart.C_next_Connection,
+    SelectAndCookRecipe(c_Recipe_Name, C_dumyConnectionStart.C_next_Connection,
                                         L_dumyLogsStart.L_next_Logs);
 }
 
-extern void SelectAndCookRecipe(char c_Recipe_Name[],Recipe *R_Recipe, Storage *S_Storage, Connection *C_Connection, Logs *L_ptr){
-    Recipe *R_tmp_Recipe = getRecipeElementByName(R_Recipe,c_Recipe_Name);
-    if(R_tmp_Recipe == NULL){
-        printf("Searched \"%s\" is not found\n",c_Recipe_Name);
-         
-    }
-    else{
+extern void SelectAndCookRecipe(char c_Recipe_Name[], Connection *C_Connection_ptr, Logs *L_ptr){
+   
+    strcpy(R_tmp_Recipe.c_Recipe_ID,getRecipeElementByName(R_dumyRecipeStart.R_next_Recipe,c_Recipe_Name)->c_Recipe_ID);
 
-    for(int i =0; i < numbersOfSeachedConnectionItem(C_Connection, R_tmp_Recipe->c_Recipe_ID);i++){
-        getStorageElementByID(S_Storage,getConnectionRecipeElementByID(C_Connection,R_tmp_Recipe->c_Recipe_ID)->c_Ingredient_ID)->d_Amount_In_Storage -= C_Connection->d_Amount_For_Recipe;
+    while(C_Connection_ptr != NULL ){
+        if(strcmp(C_Connection_ptr->c_Recipe_ID,R_tmp_Recipe.c_Recipe_ID)==0){
+           S_tmp_Storage.d_Amount_In_Storage = getStorageElementByID(S_dumyStorageStart.S_next_Storage, C_Connection_ptr->c_Ingredient_ID)->d_Amount_In_Storage;
+           if(S_tmp_Storage.d_Amount_In_Storage >= C_Connection_ptr->d_Amount_For_Recipe){
+            getStorageElementByID(S_dumyStorageStart.S_next_Storage, C_Connection_ptr->c_Ingredient_ID)->d_Amount_In_Storage -= C_Connection_ptr->d_Amount_For_Recipe;
+           }
+           else{
+            printf("You have not enought amount from \"%s\" to make this recipe.\n",getIngredientElementByID(I_dumyIngredientStart.I_next_Ingredient,C_Connection_ptr->c_Ingredient_ID)->c_Ingredient_Name);
+            RestoreStorageItemsAmount(c_Recipe_Name, C_Connection_ptr, C_dumyConnectionStart.C_next_Connection);
+           }
+        }
+        C_Connection_ptr = C_Connection_ptr->C_next_Connection; 
     }
+   
     Logs L_tmp_Log;
     getDate(&L_tmp_Log.D_Date_Of_The_Log);
-    strcpy(L_tmp_Log.c_ID,R_tmp_Recipe->c_Recipe_ID);
+    strcpy(L_tmp_Log.c_ID,R_tmp_Recipe.c_Recipe_ID);
     strcpy(L_tmp_Log.c_Operation_Description,"C");    
     createLogsListItem(&L_tmp_Log,L_ptr);
     WriteLogsToFile(&L_tmp_Log);
-    }
+ }
 
+extern void RestoreStorageItemsAmount(char c_Recipe_Name[], Connection* C_end_ptr, Connection *C_Connection_ptr){
+    while(strcmp(C_Connection_ptr->c_Recipe_ID,C_end_ptr->c_Recipe_ID)==0 && C_Connection_ptr != NULL){
+        if(strcmp(C_Connection_ptr->c_Recipe_ID,getRecipeElementByName(R_dumyRecipeStart.R_next_Recipe,c_Recipe_Name)->c_Recipe_ID)==0){
+            getStorageElementByID(S_dumyStorageStart.S_next_Storage, C_Connection_ptr->c_Ingredient_ID)->d_Amount_In_Storage += C_Connection_ptr->d_Amount_For_Recipe;          
+        }
+        C_Connection_ptr = C_Connection_ptr->C_next_Connection; 
+    }
 }
 
-extern void SuggestRndRecipe(Storage *S_Storage_ptr){
-    while(S_Storage_ptr != NULL && S_Storage_ptr->d_Amount_In_Storage > 0){
-        if(rand()%2 == 0){
-            printf("Boop");
-            //printf("%s\n",getConnectionRecipeElementByID(getConnectionIngredientElementByID(C_dumyConnectionStart.C_next_Connection,S_Storage_ptr->c_Ingredient_ID).c_Recipe_ID).c_Recipe_Name);
+
+extern void SuggestRecipeByIngredient(char c_Ingredient_Name[]){
+   getRecipeByIngredient(C_dumyConnectionStart.C_next_Connection, c_Ingredient_Name);
+}
+
+extern void getRecipeByIngredient(Connection* C_Connection_ptr, char c_Ingredient_Name[]){
+    while(C_Connection_ptr != NULL){
+        if(strcmp(C_Connection_ptr->c_Ingredient_ID,getIngredientElementByName(I_dumyIngredientStart.I_next_Ingredient,c_Ingredient_Name)->c_Ingredient_ID)==0 && 
+                getStorageElementByID(S_dumyStorageStart.S_next_Storage,C_Connection_ptr->c_Ingredient_ID)->d_Amount_In_Storage >= C_Connection_ptr->d_Amount_For_Recipe){
+            printf("%s\n",getRecipeElementByID(R_dumyRecipeStart.R_next_Recipe,C_Connection_ptr->c_Recipe_ID)->c_Recipe_Name);
         }
-        S_Storage_ptr = S_Storage_ptr->S_next_Storage;
+        C_Connection_ptr = C_Connection_ptr->C_next_Connection;
     }
 }
 

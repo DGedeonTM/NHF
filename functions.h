@@ -59,6 +59,7 @@ extern Logs* getLogElementByID(Logs *L_Log, char c_searchedID[] );
 
 extern int numbersOfSeachedConnectionItem(Connection *C_Connection, char c_searchedID[]);
 extern bool IsThereStorageItemExist(char c_Ingredient_Name[]);
+extern bool IsThereRecipeItemExist(char c_Recipe_Name[]);
 
 extern char* gen_uuid();
 
@@ -72,13 +73,15 @@ extern void AddStorage(char c_Storage_Name[], double amount, Date Exp_Date);
 extern void CookRecipe(char c_Recipe_Name[]);
 extern void ViewLogs(void);
 extern void Init(void);
+extern void AddConnection(char c_Recipe_Name[],char c_Ingredient_Name[],double d_amount);
 
 
-
+extern void SuggestRecipeByIngredient(char c_Ingredient_Name[]);
+        
 extern void ReadIngredientFile(Ingredient *I_ptr);
 extern void ReadRecipeFile(Recipe *R_ptr);
 extern void ReadStorageFile(Storage *S_ptr);
-extern void ReadConnectionFile(void);
+extern void ReadConnectionFile(Connection* C_ptr);
 extern void ReadLogsFile(Logs *L_ptr);
 
 
