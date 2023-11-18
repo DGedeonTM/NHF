@@ -5,7 +5,7 @@ extern void freeRecipesList(Recipe *R_ptr);
 extern void listRecipeListItems(Recipe *R_Recipe);
 extern void deleteRecipeListItem(Recipe *R_Recipe, char c_searchedID[] );
 extern void createRecipeListItem(Recipe * R_Recipe, Recipe * R_ptr) ;
-extern Recipe* getRecipeElementByID(Recipe *R_Recipe, char c_searchedID[] );
+extern Recipe* getRecipeElementByID(Recipe *R_Recipe, char c_searchedID[]);
 extern Recipe* getRecipeElementByName(Recipe *R_Recipe, char c_searchedName[]);
 
 extern void createIngredientListItem(Ingredient * I_Ingredient, Ingredient *I_ptr);
@@ -75,6 +75,5 @@ extern void WriteIngredientToFile(Ingredient *I_Ingredient);
 extern void WriteStorageToFile(Storage *S_Storage);
 extern void WriteConnenctionToFile(Connection *C_Connection);
 extern void WriteLogsToFile(Logs *L_Log);
-
 
 #endif

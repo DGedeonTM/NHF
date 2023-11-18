@@ -217,18 +217,20 @@ extern void CookRecipe(char c_Recipe_Name[]){
 }
 
 
-static void getRecipeByIngredient(Connection *C_Connection_ptr, char c_Ingredient_Name[]){
+extern void SuggestRecipeByIngredient(char c_Ingredient_Name[]){
+    
+    Connection* C_Connection_ptr = C_dumyConnectionStart.C_next_Connection;
+    
     while(C_Connection_ptr != NULL){
-        if(strcmp(C_Connection_ptr->c_Ingredient_ID,getIngredientElementByName(I_dumyIngredientStart.I_next_Ingredient,c_Ingredient_Name)->c_Ingredient_ID)==0 && 
-                getStorageElementByID(S_dumyStorageStart.S_next_Storage,C_Connection_ptr->c_Ingredient_ID)->d_Amount_In_Storage >= C_Connection_ptr->d_Amount_For_Recipe){
-            printf("%s\n",getRecipeElementByID(R_dumyRecipeStart.R_next_Recipe,C_Connection_ptr->c_Recipe_ID)->c_Recipe_Name);
+              
+       if(strcmp(C_Connection_ptr->c_Ingredient_ID, getIngredientElementByName(I_dumyIngredientStart.I_next_Ingredient,c_Ingredient_Name)->c_Ingredient_ID)==0
+            && getStorageElementByID(S_dumyStorageStart.S_next_Storage,C_Connection_ptr->c_Ingredient_ID)->d_Amount_In_Storage >= C_Connection_ptr->d_Amount_For_Recipe){
+            printf("%s\n", getRecipeElementByID(R_dumyRecipeStart.R_next_Recipe, C_Connection_ptr->c_Recipe_ID)->c_Recipe_Name);
         }
+                
         C_Connection_ptr = C_Connection_ptr->C_next_Connection;
     }
-}
 
-extern void SuggestRecipeByIngredient(char c_Ingredient_Name[]){
-   getRecipeByIngredient(C_dumyConnectionStart.C_next_Connection, c_Ingredient_Name);
 }
 
 
