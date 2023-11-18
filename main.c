@@ -43,6 +43,7 @@ extern int main(void) {
             
         switch (i_choice) {
             case 1:
+            printf("Recipes in the system:\n");
                 ViewRecipes();
                 break;
             case 2:
@@ -64,8 +65,6 @@ extern int main(void) {
                 }
 
                 AddRecipe(c_tmpRecipeName,c_Recipe_Description);
-                printf("Recipe list was updated\n");
-
                 break;
 
             case 3:
@@ -143,7 +142,8 @@ extern int main(void) {
                 printf("Storage was updated.\n");
                 break;
             case 8:
-
+                printf("\nSuggested recipes are the followings:\n");
+                SuggesetRandomRecipe();
                 break;
             case 9:
                 printf("Please enter the name of ingredient:");
@@ -165,7 +165,7 @@ extern int main(void) {
                 }
                 break;
             case 10:
-
+                SuggestRecipeByExpiryDate();
                 break;
             case 11: 
                 

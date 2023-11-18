@@ -4,11 +4,13 @@
 #include "debugmalloc.h"
 #include "structs.h"
 #include "functions.h"
+#include <time.h>
 
 
 
 extern int main(void){
 
+/*
     Recipe R_dumyRecipeStart;
     Ingredient I_dumyIngredientStart;
     Storage S_dumyStorageStart;
@@ -126,6 +128,21 @@ printf("----------------------\n");
 
 
     debugmalloc_dump();
+*/
+
+    Date tmp_Date;
+
+    tmp_Date.i_day = 30;
+    tmp_Date.i_month = 11;
+    tmp_Date.i_year = 2024;
+
+
+    if(DateDifferencial(tmp_Date) == 12+365){
+        printf("yeeah \n");
+    }
+    else{
+        printf("nyoo %d\n",DateDifferencial(tmp_Date));
+    }
 
     return 0;
 }

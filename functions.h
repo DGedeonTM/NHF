@@ -59,15 +59,18 @@ extern void ViewLog(void);
 extern void AddConnection(char c_Recipe_Name[],char c_Ingredient_Name[],double d_amount);
 extern void FreeAll(void);
 
-
+extern void SuggesetRandomRecipe(void);
 extern void SuggestRecipeByIngredient(char c_Ingredient_Name[]);
-        
+extern void SuggestRecipeByExpiryDate(void);
+
+
 extern void ReadIngredientFile(Ingredient *I_ptr);
 extern void ReadRecipeFile(Recipe *R_ptr);
 extern void ReadStorageFile(Storage *S_ptr);
 extern void ReadConnectionFile(Connection* C_ptr);
 extern void ReadLogsFile(Logs *L_ptr);
 extern void DeleteLineFromRecipeFile(Recipe *R_tmp_Recipe);
+extern void UpdateStorageFile(Storage *S_Storage_To_Update, double d_amount);
 
 
 extern void WriteRecipeToFile(Recipe *R_Recipe);
