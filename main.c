@@ -40,12 +40,13 @@ extern int main(void) {
             printf("Invalid choice. Program will exit.\n");
             break;
         }
-            
+
         switch (i_choice) {
             case 1:
             printf("Recipes in the system:\n");
                 ViewRecipes();
                 break;
+
             case 2:
                 printf("Please enter the name of Recipe:");
                 scanf("%s", c_tmpRecipeName);
@@ -56,7 +57,6 @@ extern int main(void) {
                      printf("\nInput too long. Please enter up to 50 characters.\n");
                      break; 
                 }
-
                 printf("\nPlease enter the description of Recipe:");
                scanf("%s", c_Recipe_Description);
                 if( strlen(c_Recipe_Description)>=5001){
@@ -83,6 +83,7 @@ extern int main(void) {
             case 4:
                 ViewIngredients();
                 break;
+
             case 5:
                 printf("\nPlease enter the name of ingredient:");
                     scanf("%s",c_tmpIngredientName);
@@ -107,9 +108,11 @@ extern int main(void) {
                 AddIngredient(c_tmpIngredientName,c_tmpUnit);
                 printf("Ingredient list was updated\n");
                 break;
+
             case 6:
                 ViewStorage();
                 break;
+
             case 7:
                 printf("Please enter the name of ingredient:");
                 scanf("%s",c_tmpIngredientName);
@@ -141,10 +144,12 @@ extern int main(void) {
                 AddStorage(c_tmpIngredientName,d_tmpAmount,D_tmpDate);
                 printf("Storage was updated.\n");
                 break;
+
             case 8:
                 printf("\nSuggested recipes are the followings:\n");
                 SuggesetRandomRecipe();
                 break;
+
             case 9:
                 printf("Please enter the name of ingredient:");
                 scanf("%s",c_tmpIngredientName);
@@ -164,11 +169,12 @@ extern int main(void) {
                     SuggestRecipeByIngredient(c_tmpIngredientName);
                 }
                 break;
+
             case 10:
                 SuggestRecipeByExpiryDate();
                 break;
-            case 11: 
-                
+
+            case 11:                 
                 printf("Please enter your choosen Recipe name what you want to cook:");
                 scanf("%s",c_tmpRecipeName);
                 if(strlen(c_tmpRecipeName) < 51){
@@ -186,12 +192,15 @@ extern int main(void) {
                     printf("Recipe was cooked.\n");
                 }
                 break;
+
             case 12:
                 ViewLog();
-                break;            
+                break;        
+
             case 13:
                 printf("Exiting the program.\nGoodbye\n");
                 break;
+                
             default:
                 printf("Invalid choice. Please try again.\n");
         }
