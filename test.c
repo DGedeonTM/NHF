@@ -19,13 +19,13 @@ extern int main(void){
     Logs L_dumyLogsStart;
 
     Recipe R ;
-    strcpy(R.c_Recipe_ID, gen_uuid());
+    strcpy(R.c_Recipe_ID, Generate_uuid());
     strcpy(R.c_Recipe_Name, "fav kaja");
-    strcpy(R.c_Recipe_Description, gen_uuid()); 
+    strcpy(R.c_Recipe_Description, Generate_uuid()); 
     createRecipeListItem( &R ,&R_dumyRecipeStart);    
-    strcpy(R.c_Recipe_ID, gen_uuid());
+    strcpy(R.c_Recipe_ID, Generate_uuid());
     strcpy(R.c_Recipe_Name, "UwU");
-    strcpy(R.c_Recipe_Description, gen_uuid());
+    strcpy(R.c_Recipe_Description, Generate_uuid());
     createRecipeListItem( &R ,&R_dumyRecipeStart);
     listRecipeListItems(R_dumyRecipeStart.R_next_Recipe);
     //printf("search food: %s\n",getRecipeElementByID(R_dumyRecipeStart.R_next_Recipe,R.c_Recipe_ID)->c_Recipe_Name);
@@ -34,11 +34,11 @@ extern int main(void){
    // freeRecipesList(R_dumyRecipeStart.R_next_Recipe);
 
     Ingredient I;
-    strcpy(I.c_Ingredient_ID,gen_uuid());
+    strcpy(I.c_Ingredient_ID,Generate_uuid());
     strcpy(I.c_Ingredient_Name, "vuti");
     strcpy(I.c_Unit,"boop");
     createIngredientListItem(&I , &I_dumyIngredientStart);
-    strcpy(I.c_Ingredient_ID,gen_uuid());
+    strcpy(I.c_Ingredient_ID,Generate_uuid());
     strcpy(I.c_Ingredient_Name, "nyami");
     strcpy(I.c_Unit,"nyaw");
     createIngredientListItem(&I , &I_dumyIngredientStart);
@@ -64,7 +64,7 @@ printf("----------------------\n");
     L.D_Date_Of_The_Log.i_day = 3;
     L.D_Date_Of_The_Log.i_month = 11;
     L.D_Date_Of_The_Log.i_year = 2023;
-    strcpy(L.c_ID, gen_uuid());
+    strcpy(L.c_ID, Generate_uuid());
     strcpy(L.c_Operation_Description,"C");
 
     createLogsListItem(&L,&L_dumyLogsStart);
@@ -72,7 +72,7 @@ printf("----------------------\n");
     L.D_Date_Of_The_Log.i_day = 4;
     L.D_Date_Of_The_Log.i_month = 11;
     L.D_Date_Of_The_Log.i_year = 2023;
-    strcpy(L.c_ID, gen_uuid());
+    strcpy(L.c_ID, Generate_uuid());
     strcpy(L.c_Operation_Description,"A");
 
     createLogsListItem(&L,&L_dumyLogsStart);
@@ -84,18 +84,18 @@ printf("----------------------\n");
    // freeLogsList(L_dumyLogsStart.L_next_Logs);
 
     Connection C;
-    strcpy(C.c_Recipe_ID, gen_uuid());
-    strcpy(C.c_Ingredient_ID, gen_uuid());
+    strcpy(C.c_Recipe_ID, Generate_uuid());
+    strcpy(C.c_Ingredient_ID, Generate_uuid());
     C.d_Amount_For_Recipe = 21;
     createConnectionListItem(&C, &C_dumyConnectionStart);
-    strcpy(C.c_Ingredient_ID, gen_uuid());
+    strcpy(C.c_Ingredient_ID, Generate_uuid());
     C.d_Amount_For_Recipe = 2;
     createConnectionListItem(&C,&C_dumyConnectionStart);
-    strcpy(C.c_Recipe_ID, gen_uuid());
-    strcpy(C.c_Ingredient_ID, gen_uuid());
+    strcpy(C.c_Recipe_ID, Generate_uuid());
+    strcpy(C.c_Ingredient_ID, Generate_uuid());
     C.d_Amount_For_Recipe = 76;
     createConnectionListItem(&C,&C_dumyConnectionStart);
-    strcpy(C.c_Ingredient_ID, gen_uuid());
+    strcpy(C.c_Ingredient_ID, Generate_uuid());
     C.d_Amount_For_Recipe = 88;   
     createConnectionListItem(&C,&C_dumyConnectionStart);
     listConnectionListItems(C_dumyConnectionStart.C_next_Connection);

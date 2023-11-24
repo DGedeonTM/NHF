@@ -4,7 +4,15 @@
 #include "debugmalloc.h"
 #include "structs.h"
 
-
+/*
+  Description: Creates a new Connection list item and appends it to the end of the list.
+  Error Cases: Exits the program if memory allocation fails.
+  Input arguments: C_Connection - Pointer to the Connection structure to be added.
+                   C_ptr - Pointer to the head of the Connection list.
+  Return type: void
+  Memory usage: Allocates memory for a new Connection structure.
+  Big O notation: O(n), where n is the number of elements in the Connection list.
+ */
 extern void createConnectionListItem(Connection * C_Connection, Connection * C_ptr){
     while(C_ptr->C_next_Connection != NULL){
         C_ptr = C_ptr->C_next_Connection;
@@ -23,7 +31,15 @@ extern void createConnectionListItem(Connection * C_Connection, Connection * C_p
     C_ptr = C_ptr->C_next_Connection;
 }
 
-
+/*
+  Description: Counts the number of Connection list items with a specified recipe ID.
+  Error Cases: None.
+  Input arguments: C_Connection - Pointer to the head of the Connection list.
+                   c_searchedID - Recipe ID to search for.
+  Return type: int - Number of Connection items with the specified recipe ID.
+  Memory usage: No dynamic memory allocation.
+  Big O notation: O(n), where n is the number of elements in the Connection list.
+ */
 extern int numbersOfSeachedConnectionItem(Connection *C_Connection, char c_searchedID[]){
     int i_n;
     Connection *C_tmp_ptr = C_Connection;
@@ -36,6 +52,15 @@ extern int numbersOfSeachedConnectionItem(Connection *C_Connection, char c_searc
     return i_n;
 }
 
+/*
+  Description: Deletes Connection list items with a specified recipe ID.
+  Error Cases: None.
+  Input arguments: C_Connection - Pointer to the head of the Connection list.
+                   c_searchedID - Recipe ID to search for and delete.
+  Return type: void
+  Memory usage: Frees memory for the deleted Connection structures.
+  Big O notation: O(n^2), where n is the number of elements in the Connection list.
+ */
 extern void deleteConnectionListItem(Connection *C_Connection, char c_searchedID[] ){
     Connection *C_tmp_ptr = C_Connection->C_next_Connection;
     Connection *C_behind_ptr = C_Connection;
@@ -56,6 +81,14 @@ extern void deleteConnectionListItem(Connection *C_Connection, char c_searchedID
     
 }
 
+/*
+  Description: Lists the amounts for each Connection list item.
+  Error Cases: None.
+  Input arguments: C_Connection - Pointer to the head of the Connection list.
+  Return type: void
+  Memory usage: No dynamic memory allocation.
+  Big O notation: O(n), where n is the number of elements in the Connection list.
+ */
 extern void listConnectionListItems(Connection *C_Connection){
     Connection *C_tmp_ptr = C_Connection;
     while(C_tmp_ptr != NULL){
@@ -64,6 +97,14 @@ extern void listConnectionListItems(Connection *C_Connection){
     }
 }
 
+/*
+  Description: Frees the memory allocated for the entire Connection list.
+  Error Cases: None.
+  Input arguments: C_ptr - Pointer to the head of the Connection list.
+  Return type: void
+  Memory usage: Frees memory for all Connection structures in the list.
+  Big O notation: O(n), where n is the number of elements in the Connection list.
+ */
 extern void freeConnectionList(Connection *C_ptr){
     Connection* C_tmp_ptr = C_ptr;
     while (C_ptr != NULL) {
@@ -73,6 +114,15 @@ extern void freeConnectionList(Connection *C_ptr){
     }
 }
 
+/*
+  Description: Retrieves a Connection list item with a specified recipe ID.
+  Error Cases: None.
+  Input arguments: C_Connection - Pointer to the head of the Connection list.
+                   c_searchedID - Recipe ID to search for.
+  Return type: Pointer to the found Connection structure or NULL if not found.
+  Memory usage: No dynamic memory allocation.
+  Big O notation: O(n), where n is the number of elements in the Connection list.
+ */
 extern Connection* getConnectionRecipeElementByID(Connection *C_Connection, char c_searchedID[] ){
     Connection *C_tmp_ptr = C_Connection;
     while(C_tmp_ptr != NULL){
@@ -84,6 +134,15 @@ extern Connection* getConnectionRecipeElementByID(Connection *C_Connection, char
     return NULL;
 }
 
+/*
+  Description: Retrieves a Connection list item with a specified ingredient ID.
+  Error Cases: None.
+  Input arguments: C_Connection - Pointer to the head of the Connection list.
+                   c_searchedID - Ingredient ID to search for.
+  Return type: Pointer to the found Connection structure or NULL if not found.
+  Memory usage: No dynamic memory allocation.
+  Big O notation: O(n), where n is the number of elements in the Connection list.
+ */
 extern Connection* getConnectionIngredientElementByID(Connection *C_Connection, char c_searchedID[] ){
     Connection *C_tmp_ptr = C_Connection;
     while(C_tmp_ptr != NULL){

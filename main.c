@@ -5,21 +5,37 @@
 #include "structs.h"
 #include "functions.h"
 
+/*
+  Description: The main function of the program, which presents a menu to the user for interacting with the recipe and ingredient system.
+  Error Cases: None.
+  Input arguments: None.
+  Return type: int.
+  Memory usage: Depends on the system's usage throughout the program. Freed at the end of the program.
+  Big O notation: Depends on the operations performed, typically O(1) for each menu option.
+ */
 extern int main(void) {
 
     int i_choice = 0;
-    char c_tmpRecipeName[51] = {0};
-    char c_Recipe_Description[5001]={0};
+    char c_tmpRecipeName[51];
+    char c_Recipe_Description[5001];
     char c_tmpDeleteName[51];
     char c_tmpIngredientName[51];
     char c_tmpUnit[11];
-    char c_tmpStorageName[51];
     double d_tmpAmount;
+    int i_Differencial_Day;
     Date D_tmpDate;
 
+    // Initialize the system
     Init();
     while (i_choice != 13){
         printf("\n>----------------------<\n");
+        printf("  .-----.\n");
+        printf("  `.   .' \n");
+        printf("   |___|  \n");
+        printf("   :o o:  \n");
+        printf("  _`~^~'_ \n");
+        printf("/    ^    \\  \n");
+
         printf("\nMenu Options:\n");
         printf("1. View Recipes\n");
         printf("2. Add Recipe\n");
@@ -35,12 +51,14 @@ extern int main(void) {
         printf("12. Logs\n");
         printf("13. Exit\n");
 
-        printf("Enter your choice: ");
+        // Take user input for the menu choice
+        printf("Enter your choice: "); 
         if(scanf("%d", &i_choice) !=1 ){
             printf("Invalid choice. Program will exit.\n");
             break;
         }
 
+        // Perform actions based on user's menu choice
         switch (i_choice) {
             case 1:
             printf("Recipes in the system:\n");
@@ -72,13 +90,13 @@ extern int main(void) {
                 scanf("%s",c_tmpDeleteName) ;
                 if(strlen(c_tmpDeleteName) < 51){
                     printf("You entered: \"%s\" \n",c_tmpDeleteName);
+
                 }
                 else{
                      printf("Input too long. Please enter up to 50 characters.\n");
                      break;
                 }
                 DeleteRecipe(c_tmpDeleteName);
-                printf("Recipe list was deleted\n");
                 break;
             case 4:
                 ViewIngredients();
@@ -116,7 +134,8 @@ extern int main(void) {
             case 7:
                 printf("Please enter the name of ingredient:");
                 scanf("%s",c_tmpIngredientName);
-                if(strlen(c_tmpRecipeName) < 51){
+                
+                if(strlen(c_tmpIngredientName) < 51){
                     printf("You entered: \"%s\" \n",c_tmpIngredientName);
                 }
                 else{
@@ -130,19 +149,46 @@ extern int main(void) {
                 }
 
                 printf("\nPlease enter the amount of ingredient:");
-
-                if(scanf("%lf",&d_tmpAmount)==1 && d_tmpAmount >0){}
-                else {
+                scanf("%lf",&d_tmpAmount);
+                if( d_tmpAmount <= 0){
                     printf("The amount must be greater than 0");
                     break;
                 }
-                printf("Please enter the ingredient Expiration date in day:month:year format. If the ingredient has not explicit Expiration day, then enter the most possible date, what you think will be expired.\n");
+                else {
+                    
+                }
+                printf("Please enter the ingredient Expiration date. If the ingredient has not explicit Expiration day, then enter the most possible date, what you think will be expired.\n");
 
-                printf("Expiraton date: ");
-                scanf("%d:%d:%d",&D_tmpDate.i_day,&D_tmpDate.i_month,&D_tmpDate.i_year);
-                             
-                AddStorage(c_tmpIngredientName,d_tmpAmount,D_tmpDate);
-                printf("Storage was updated.\n");
+                printf("Expiraton date: \n");
+                printf("Day:");
+                scanf("%d",&D_tmpDate.i_day);
+                if(D_tmpDate.i_day < 32 && D_tmpDate.i_day > 0){
+                    printf("Month:");
+                    scanf("%d",&D_tmpDate.i_month);
+                    if(D_tmpDate.i_month < 13 && D_tmpDate.i_month > 0){
+                        printf("Year:");
+                        scanf("%d",&D_tmpDate.i_year);
+                        printf("You entered the day (day:month:year): %d:%d:%d\n",D_tmpDate.i_day,D_tmpDate.i_month,D_tmpDate.i_year);
+                        if(DateDifferencial(D_tmpDate) < 0){
+                            printf("This ingredient already expired.\n");
+                            break;
+                        }
+                        else{
+                            AddStorage(c_tmpIngredientName,d_tmpAmount, &D_tmpDate);
+                            printf("Storage was updated.\n");
+                            break;
+                        }                       
+                    }
+                    else{
+                        printf("Month must be between 1 - 12\n");
+                        break;
+                    }
+                
+                }
+                else{
+                    printf("Date must be between 1 - 31\n");
+                    break;
+                }
                 break;
 
             case 8:
@@ -155,23 +201,28 @@ extern int main(void) {
                 scanf("%s",c_tmpIngredientName);
                 if(strlen(c_tmpIngredientName) < 51 ){
                     printf("You entered: \"%s\" \n",c_tmpIngredientName);
+
+                    if(!IsThereStorageItemExist(c_tmpIngredientName)){
+                        printf("The choosen item: \"%s\" is not in the system. Please make sure you type correctly. \n Maybe you trying to enter an ingredient type which is not in sytem. Please make sure is the ingredient what you want to use, is exist. For this use -- 4. View Ingredients -- function or add new ingredient to your system \n " , c_tmpIngredientName);
+                        break;
+                    }
+                    else{
+                        printf("\nRecipes which are include the ingredient \"%s\" are the followings:\n",c_tmpIngredientName);
+                        SuggestRecipeByIngredient(c_tmpIngredientName);
+                        break;
+                    }
                 }
                 else{
                      printf("Input too long. Please enter up to 50 characters.\n");
                      break;
-                }
-                if(!IsThereStorageItemExist(c_tmpIngredientName)){
-                    printf("The choosen item: \"%s\" is not in the system. Please make sure you type correctly. \n Maybe you trying to enter an ingredient type which is not in sytem. Please make sure is the ingredient what you want to use, is exist. For this use -- 4. View Ingredients -- function or add new ingredient to your system \n " , c_tmpIngredientName);
-                    break;
-                }
-                else{
-                    printf("\nRecipes which are include the ingredient \"%s\" are the followings:\n",c_tmpIngredientName);
-                    SuggestRecipeByIngredient(c_tmpIngredientName);
-                }
+                }                
                 break;
 
             case 10:
-                SuggestRecipeByExpiryDate();
+                printf("\nPlease enter the date within which you want the expiry date to be:");
+                scanf("%d",&i_Differencial_Day);
+                printf("\nYou entered: \"%d\"\n",i_Differencial_Day);
+                SuggestRecipeByExpiryDate(i_Differencial_Day);
                 break;
 
             case 11:                 
@@ -179,18 +230,19 @@ extern int main(void) {
                 scanf("%s",c_tmpRecipeName);
                 if(strlen(c_tmpRecipeName) < 51){
                     printf("\nYou entered: \"%s\"\n",c_tmpRecipeName);
+                    if(!IsThereRecipeItemExist(c_tmpRecipeName)){
+                        printf("The recipe \"%s\" is not in the system. Please make sure you write correctly or add that recipe to the system.\n",c_tmpRecipeName);
+                    break;
+                    }
+                    else{
+                        CookRecipe(c_tmpRecipeName);
+                        printf("Recipe was cooked.\n");
+                        break;
+                    }
                 }
                 else{
                      printf("\nInput too long. Please enter up to 50 characters.\n");
-                }
-                if(!IsThereRecipeItemExist(c_tmpRecipeName)){
-                    printf("The recipe \"%s\" is not in the system. Please make sure you write correctly or add that recipe to the system.\n",c_tmpRecipeName);
-                    break;
-                }
-                else{
-                    CookRecipe(c_tmpRecipeName);
-                    printf("Recipe was cooked.\n");
-                }
+                }                
                 break;
 
             case 12:
@@ -206,6 +258,8 @@ extern int main(void) {
         }
       
     }
+    
+    // Free allocated memory and display memory debugging information
     FreeAll();
     return 0;
 }
