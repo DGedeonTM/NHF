@@ -286,7 +286,7 @@ extern void AddIngredient(char c_Inredient_Name[], char c_Ingredient_Unit[]){
   Memory usage: No additional memory is allocated.
   Big O notation: O(N), where N is the number of storage items.
  */
-extern void ViewStorage(){
+extern void ViewStorage(void){
     listStorageListItems(S_dumyStorageStart.S_next_Storage);
 }
 
@@ -455,12 +455,7 @@ extern void SuggestRecipeByIngredient(char c_Ingredient_Name[]){
 }
 
 /*
-  Description: Suggests a random recipe based on ingredient availability.
-  Error Cases: None.
-  Input arguments: None.
-  Return type: void.
-  Memory usage: No additional memory is allocated.
-  Big O notation: O(N), where N is the number of connections.
+c
  */
 extern void SuggesetRandomRecipe(void){
     Connection* C_Connection_ptr = C_dumyConnectionStart.C_next_Connection;

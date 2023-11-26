@@ -55,7 +55,7 @@ extern void AddRecipe(char c_Recipe_Name[], char c_Recipe_Description[]);
 extern void DeleteRecipe(char c_Recipe_Name[]);
 extern void ViewIngredients(void);
 extern void AddIngredient(char c_Inredient_Name[], char c_Ingredient_Unit[]);
-extern void ViewStorage();
+extern void ViewStorage(void);
 extern void AddConnection(char c_Recipe_Name[],char c_Ingredient_Name[],double d_amount);
 extern void AddStorage(char c_Storage_Name[], double amount, Date *Exp_Date);
 extern bool IsThereStorageItemExist(char c_Ingredient_Name[]);
