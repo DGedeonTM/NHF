@@ -20,6 +20,8 @@
     Logs L_tmp_Log;
     Date D_tmp_Date;
 
+    int i_maxNameLength = 51;
+    int i_maxUnitName = 11;
 /*
   Description: Initializes the system by setting up the random seed, reading recipe, ingredient, storage, connection, and logs files.
   Error Cases: None.
@@ -154,7 +156,7 @@ extern void AddRecipe(char c_Recipe_Name[], char c_Recipe_Description[]){
             if(strcmp("yes",c_falseIngredient)==0 || strcmp("y",c_falseIngredient)==0){
                 printf("\nPlease enter the name of ingredient:");
                     scanf("%s",c_tmpIngredientName);
-                if(strlen(c_tmpIngredientName) < 51){
+                if(strlen(c_tmpIngredientName) < i_maxNameLength){
                     printf("You entered: \"%s\" \n",c_tmpIngredientName);
                 }
                 else{
@@ -165,7 +167,7 @@ extern void AddRecipe(char c_Recipe_Name[], char c_Recipe_Description[]){
     
                 printf("Please enter the unit of ingredient:");
                 scanf("%s",c_tmpUnit);
-                if(strlen(c_tmpUnit) < 11){
+                if(strlen(c_tmpUnit) < i_maxUnitName){
                     printf("You entered: \"%s\" \n",c_tmpUnit);
                 }
                 else{

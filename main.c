@@ -16,6 +16,9 @@
 extern int main(void) {
 
     int i_choice = 0;
+    int i_maxNameLength = 51;
+    int i_maXDescriptionName = 5001;
+    int i_maxUnitName = 11;
     char c_tmpRecipeName[51];
     char c_Recipe_Description[5001];
     char c_tmpDeleteName[51];
@@ -68,7 +71,7 @@ extern int main(void) {
             case 2:
                 printf("Please enter the name of Recipe:");
                 scanf("%s", c_tmpRecipeName);
-                if( strlen(c_tmpRecipeName) < 51){
+                if( strlen(c_tmpRecipeName) < i_maxNameLength){
                     printf("\nYou entered: \"%s\" \n",c_tmpRecipeName);
                 }
                 else{
@@ -77,7 +80,7 @@ extern int main(void) {
                 }
                 printf("\nPlease enter the description of Recipe:");
                scanf("%s", c_Recipe_Description);
-                if( strlen(c_Recipe_Description)>=5001){
+                if( strlen(c_Recipe_Description)>= i_maXDescriptionName ){
                      printf("\nInput too long. Please enter up to 5000 characters.\n");
                      break;
                 }
@@ -88,7 +91,7 @@ extern int main(void) {
             case 3:
                 printf("Please enter the name of Recipe what you want to delete:");
                 scanf("%s",c_tmpDeleteName) ;
-                if(strlen(c_tmpDeleteName) < 51){
+                if(strlen(c_tmpDeleteName) < i_maxNameLength){
                     printf("You entered: \"%s\" \n",c_tmpDeleteName);
 
                 }
@@ -105,7 +108,7 @@ extern int main(void) {
             case 5:
                 printf("\nPlease enter the name of ingredient:");
                     scanf("%s",c_tmpIngredientName);
-                if(strlen(c_tmpIngredientName) < 51){
+                if(strlen(c_tmpIngredientName) < i_maxNameLength){
                     printf("You entered: \"%s\" \n",c_tmpIngredientName);
                 }
                 else{
@@ -115,7 +118,7 @@ extern int main(void) {
     
                 printf("Please enter the unit of ingredient:");
                 scanf("%s",c_tmpUnit);
-                if(strlen(c_tmpUnit) < 11){
+                if(strlen(c_tmpUnit) < i_maxUnitName){
                     printf("You entered: \"%s\" \n",c_tmpUnit);
                 }
                 else{
@@ -135,7 +138,7 @@ extern int main(void) {
                 printf("Please enter the name of ingredient:");
                 scanf("%s",c_tmpIngredientName);
                 
-                if(strlen(c_tmpIngredientName) < 51){
+                if(strlen(c_tmpIngredientName) < i_maxNameLength){
                     printf("You entered: \"%s\" \n",c_tmpIngredientName);
                 }
                 else{
@@ -199,7 +202,7 @@ extern int main(void) {
             case 9:
                 printf("Please enter the name of ingredient:");
                 scanf("%s",c_tmpIngredientName);
-                if(strlen(c_tmpIngredientName) < 51 ){
+                if(strlen(c_tmpIngredientName) < i_maxNameLength ){
                     printf("You entered: \"%s\" \n",c_tmpIngredientName);
 
                     if(!IsThereStorageItemExist(c_tmpIngredientName)){
@@ -228,7 +231,7 @@ extern int main(void) {
             case 11:                 
                 printf("Please enter your choosen Recipe name what you want to cook:");
                 scanf("%s",c_tmpRecipeName);
-                if(strlen(c_tmpRecipeName) < 51){
+                if(strlen(c_tmpRecipeName) < i_maxNameLength){
                     printf("\nYou entered: \"%s\"\n",c_tmpRecipeName);
                     if(!IsThereRecipeItemExist(c_tmpRecipeName)){
                         printf("The recipe \"%s\" is not in the system. Please make sure you write correctly or add that recipe to the system.\n",c_tmpRecipeName);
