@@ -1,0 +1,109 @@
+@startuml Connection
+
+' Define the boxes for different sections of functions
+package "Recipe" {
+  [createRecipeListItem] --> [listRecipeListItems]
+  [createRecipeListItem] --> [deleteRecipeListItem]
+  [listRecipeListItems] --> [freeRecipesList]
+  [getRecipeElementByName] --> [listRecipeListItems]
+  [getRecipeElementByID] --> [listRecipeListItems]
+  [getRecipeElementByID] --> [deleteRecipeListItem]
+}
+
+package "Ingredient" {
+  [createIngredientListItem] --> [listIngredientsListItems]
+  [createIngredientListItem] --> [deleteIngredientListItem]
+  [listIngredientsListItems] --> [freeIngredientsList]
+  [getIngredientElementByName] --> [listIngredientsListItems]
+  [getIngredientElementByID] --> [listIngredientsListItems]
+  [getIngredientElementByID] --> [deleteIngredientListItem]
+}
+
+package "Storage" {
+  [createStorageListItem] --> [listStorageListItems]
+  [createStorageListItem] --> [deleteStorageListItem]
+  [listStorageListItems] --> [freeStorageList]
+  [getStorageElementByID] --> [listStorageListItems]
+  [getStorageElementByID] --> [deleteStorageListItem]
+}
+
+package "Connection" {
+  [createConnectionListItem] --> [listConnectionListItems]
+  [createConnectionListItem] --> [deleteConnectionListItem]
+  [listConnectionListItems] --> [freeConnectionList]
+  [getConnectionRecipeElementByID] --> [listConnectionListItems]
+  [getConnectionRecipeElementByID] --> [deleteConnectionListItem]
+  [getConnectionIngredientElementByID] --> [listConnectionListItems]
+  [getConnectionIngredientElementByID] --> [deleteConnectionListItem]
+}
+
+package "Logs" {
+  [createLogsListItem] --> [listLogsListItems]
+  [createLogsListItem] --> [deleteLogListItem]
+  [listLogsListItems] --> [freeLogsList]
+  [getLogElementByID] --> [listLogsListItems]
+  [getLogElementByID] --> [deleteLogListItem]
+}
+
+' Define the flow of functions within different sections
+[ViewRecipes] --> [listRecipeListItems]
+[ViewRecipes] --> [deleteRecipeListItem]
+[ViewRecipes] --> [createRecipeListItem]
+[ViewRecipes] --> [freeRecipesList]
+
+[AddRecipe] --> [listRecipeListItems]
+[AddRecipe] --> [deleteRecipeListItem]
+[AddRecipe] --> [createRecipeListItem]
+[AddRecipe] --> [freeRecipesList]
+
+[DeleteRecipe] --> [listRecipeListItems]
+[DeleteRecipe] --> [deleteRecipeListItem]
+[DeleteRecipe] --> [freeRecipesList]
+
+[ViewIngredients] --> [listIngredientsListItems]
+[ViewIngredients] --> [deleteIngredientListItem]
+[ViewIngredients] --> [createIngredientListItem]
+[ViewIngredients] --> [freeIngredientsList]
+
+[AddIngredient] --> [listIngredientsListItems]
+[AddIngredient] --> [deleteIngredientListItem]
+[AddIngredient] --> [createIngredientListItem]
+[AddIngredient] --> [freeIngredientsList]
+[AddIngredient] --> [IsThereStorageItemExist]
+[AddIngredient] --> [listStorageListItems]
+
+[ViewStorage] --> [listStorageListItems]
+[ViewStorage] --> [deleteStorageListItem]
+[ViewStorage] --> [createStorageListItem]
+[ViewStorage] --> [freeStorageList]
+
+[AddStorage] --> [listStorageListItems]
+[AddStorage] --> [deleteStorageListItem]
+[AddStorage] --> [createStorageListItem]
+[AddStorage] --> [freeStorageList]
+[AddStorage] --> [IsThereStorageItemExist]
+[AddStorage] --> [listIngredientsListItems]
+
+[SelectAndCookRecipe] --> [getConnectionRecipeElementByID]
+[SelectAndCookRecipe] --> [listConnectionListItems]
+[SelectAndCookRecipe] --> [deleteConnectionListItem]
+[SelectAndCookRecipe] --> [createConnectionListItem]
+[SelectAndCookRecipe] --> [freeConnectionList]
+[SelectAndCookRecipe] --> [getConnectionIngredientElementByID]
+
+[ViewLogs] --> [listLogsListItems]
+[ViewLogs] --> [deleteLogListItem]
+[ViewLogs] --> [createLogsListItem]
+[ViewLogs] --> [freeLogsList]
+
+[ReadRecipeFile] --> [freeRecipesList]
+[ReadIngredientFile] --> [freeIngredientsList]
+[ReadStorageFile] --> [freeStorageList]
+
+[WriteRecipeToFile] --> [listRecipeListItems]
+[WriteIngredientToFile] --> [listIngredientsListItems]
+[WriteStorageToFile] --> [listStorageListItems]
+[WriteConnenctionToFile] --> [listConnectionListItems]
+[WriteLogsToFile] --> [listLogsListItems]
+
+@enduml
